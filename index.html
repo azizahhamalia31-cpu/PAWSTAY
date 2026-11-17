@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>PAWSTAY — Pet Hotel Kucing &amp; Anjing di Madiun</title>
+  <meta name="description" content="PAWSTAY, pet hotel khusus kucing dan anjing di Madiun. Kamar bersih, makan teratur, kabar foto setiap hari." />
+  <meta name="theme-color" content="#0f6b63" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    (function () {
+      try {
+        var t = localStorage.getItem('pawstay-theme');
+        if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+<div id="pawstay" class="ps">
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="i-paw" viewBox="0 0 24 24"><circle cx="7" cy="8" r="2.2"/><circle cx="12" cy="5.5" r="2.2"/><circle cx="17" cy="8" r="2.2"/><circle cx="19.2" cy="13" r="1.9"/><path d="M12 11c-3 0-6.5 4-6.5 6.7 0 1.6 1.3 2.5 3 2.3 1.3-.2 2.2-.8 3.5-.8s2.2.6 3.5.8c1.7.2 3-.7 3-2.3C18.5 15 15 11 12 11z"/></symbol>
+    <symbol id="i-wa" viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.7-.3-1.5-.7-2.2-1.4-.6-.5-1-1.2-1.3-1.7-.1-.2 0-.4.1-.5l.4-.5.3-.4v-.5l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.8 4.4 3.9 2.2.9 2.6.7 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3z"/></symbol>
+    <symbol id="i-form" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></symbol>
+    <symbol id="i-cam" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/></symbol>
+    <symbol id="i-bowl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11h18a9 9 0 0 1-18 0zM8 7c0-1.5 1-2 1-3.5M12 7c0-1.5 1-2 1-3.5M16 7c0-1.5 1-2 1-3.5"/></symbol>
+    <symbol id="i-wind" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h11a3 3 0 1 0-3-3M3 12h16a3 3 0 1 1-3 3M3 16h8"/></symbol>
+    <symbol id="i-ball" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M5.6 5.6c3.5 3.5 3.5 9.3 0 12.8M18.4 5.6c-3.5 3.5-3.5 9.3 0 12.8"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/><path d="M8.5 11.5h2l1-2 1.5 4 1-2h1.5"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></symbol>
+  </svg>
+
+  <!-- HEADER -->
+  <header class="ps-header" id="atas">
+    <div class="wrap ps-header__row">
+      <a href="#beranda" class="ps-logo" aria-label="PAWSTAY beranda">
+        <span class="ps-logo__mark"><svg><use href="#i-paw"/></svg></span>
+        <span>PAWSTAY</span>
+      </a>
+      <nav class="ps-nav" aria-label="Menu utama">
+        <a href="#fasilitas">Fasilitas</a>
+        <a href="#harga">Harga</a>
+        <a href="#cara">Cara titip</a>
+        <a href="#formulir">Formulir</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="ps-header__actions">
+        <button type="button" class="ps-theme" id="themeToggle" aria-label="Ganti mode terang atau gelap">
+          <svg class="ps-theme__sun"><use href="#i-sun"/></svg>
+          <svg class="ps-theme__moon"><use href="#i-moon"/></svg>
+        </button>
+        <a class="btn btn--sm btn--teal js-wa" href="https://wa.me/6282336528651" target="_blank" rel="noopener">
+          <svg class="ico"><use href="#i-wa"/></svg><span>Contact person</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- BERANDA -->
+    <section class="ps-hero" id="beranda">
+      <div class="wrap ps-hero__grid">
+        <div class="ps-hero__copy">
+          <p class="ps-hero__place"><svg class="ico"><use href="#i-pin"/></svg> Pet hotel kucing &amp; anjing · Madiun</p>
+          <h1>Anda pergi tenang. <span class="hl">Anabul tetap senang.</span></h1>
+          <p class="ps-hero__lead">Kamar bersih dan sejuk. Makan sesuai kebiasaan. Kabar foto setiap hari lewat WhatsApp.</p>
+          <div class="ps-hero__cta">
+            <a href="#formulir" class="btn btn--lg btn--teal"><svg class="ico"><use href="#i-form"/></svg>Isi formulir penitipan</a>
+            <a href="https://wa.me/6282336528651" target="_blank" rel="noopener" class="btn btn--lg btn--wa js-wa"><svg class="ico"><use href="#i-wa"/></svg>Hubungi lewat WhatsApp</a>
+          </div>
+          <p class="ps-hero__note">Mulai <strong>Rp45.000</strong> per malam · Buka setiap hari 08.00–20.00</p>
+        </div>
+        <figure class="ps-hero__media">
+          <img src="https://cdn.magicpatterns.com/patterns/generated-images/fcc93a78-841b-4434-af34-98dba1162f02.jpg" alt="Kucing oranye dan anjing corgi beristirahat bersama di kasur mint" width="928" height="1152" />
+          <figcaption class="ps-hero__badge">
+            <span class="ps-hero__badge-num">4,9</span>
+            <span>dari 300+ pemilik anabul di Madiun</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- FASILITAS -->
+    <section class="ps-section" id="fasilitas">
+      <div class="wrap ps-fac">
+        <div class="ps-fac__intro">
+          <h2>Fasilitas yang bikin betah</h2>
+          <p class="lead">Semua dirancang untuk rasa aman. Kucing dan anjing punya area sendiri.</p>
+          <img class="ps-fac__img" src="https://cdn.magicpatterns.com/patterns/generated-images/ffbe64f4-438b-41a8-b141-29eb5a87bcd9.jpg" alt="Kamar suite PAWSTAY dengan kasur kayu dan kucing yang tidur" width="1264" height="848" loading="lazy" />
+        </div>
+        <ul class="ps-fac__list">
+          <li>
+            <span class="ps-fac__ico ps-fac__ico--teal"><svg><use href="#i-home"/></svg></span>
+            <div><h3>Area kucing &amp; anjing terpisah</h3><p>Tidak saling mendengar. Kucing lebih tenang, anjing lebih leluasa.</p></div>
+          </li>
+          <li>
+            <span class="ps-fac__ico ps-fac__ico--butter"><svg><use href="#i-cam"/></svg></span>
+            <div><h3>Kabar foto &amp; video harian</h3><p>Dikirim ke WhatsApp Anda setiap sore.</p></div>
+          </li>
+          <li>
+            <span class="ps-fac__ico ps-fac__ico--coral"><svg><use href="#i-bowl"/></svg></span>
+            <div><h3>Makan sesuai jadwal di rumah</h3><p>Bawa pakan sendiri atau pakai pakan dari kami.</p></div>
+          </li>
+          <li>
+            <span class="ps-fac__ico ps-fac__ico--teal"><svg><use href="#i-wind"/></svg></span>
+            <div><h3>Kamar ber-AC, dibersihkan 2× sehari</h3><p>Pasir dan alas diganti rutin. Bebas bau.</p></div>
+          </li>
+          <li>
+            <span class="ps-fac__ico ps-fac__ico--butter"><svg><use href="#i-ball"/></svg></span>
+            <div><h3>Waktu main setiap hari</h3><p>Di area bermain tertutup, didampingi staf.</p></div>
+          </li>
+          <li>
+            <span class="ps-fac__ico ps-fac__ico--coral"><svg><use href="#i-heart"/></svg></span>
+            <div><h3>Cek kesehatan saat check-in</h3><p>Kami bekerja sama dengan klinik hewan terdekat.</p></div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- HARGA -->
+    <section class="ps-section ps-section--mint" id="harga">
+      <div class="wrap">
+        <div class="ps-head">
+          <h2>Harga per malam</h2>
+          <p class="lead">Jelas di depan. Tanpa biaya tersembunyi.</p>
+        </div>
+
+        <div class="ps-price">
+          <table class="ps-price__table">
+            <caption class="sr-only">Daftar harga penitipan per malam</caption>
+            <thead>
+              <tr>
+                <th scope="col">Hewan</th>
+                <th scope="col">Standar</th>
+                <th scope="col"><span class="ps-price__suite">Suite</span></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Kucing<small>Semua ukuran</small></th>
+                <td>Rp45.000</td>
+                <td><span class="ps-price__suite">Rp70.000</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Anjing kecil<small>Di bawah 10 kg</small></th>
+                <td>Rp60.000</td>
+                <td><span class="ps-price__suite">Rp90.000</span></td>
+              </tr>
+              <tr>
+                <th scope="row">Anjing sedang–besar<small>10 kg ke atas</small></th>
+                <td>Rp85.000</td>
+                <td><span class="ps-price__suite">Rp120.000</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="ps-price__legend">
+            <p><strong>Standar:</strong> kamar pribadi, AC, makan 2×, kabar foto harian.</p>
+            <p><strong>Suite:</strong> kamar lebih luas, kasur kayu, main 2× sehari, video harian.</p>
+          </div>
+
+          <div class="ps-price__extra">
+            <div class="ps-price__promo">
+              <span class="ps-price__promo-num">10%</span>
+              <p><strong>Hemat untuk titip lama.</strong> Diskon untuk 7 malam atau lebih.</p>
+            </div>
+            <dl class="ps-price__addons">
+              <div><dt>Mandi &amp; sisir</dt><dd>Rp35.000</dd></div>
+              <div><dt>Antar-jemput (Kota Madiun)</dt><dd>Rp25.000</dd></div>
+              <div><dt>Pakan dari PAWSTAY</dt><dd>Rp10.000/hari</dd></div>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARA MENITIPKAN -->
+    <section class="ps-section" id="cara">
+      <div class="wrap">
+        <div class="ps-head">
+          <h2>Cara menitipkan</h2>
+          <p class="lead">Empat langkah. Selesai dalam sehari.</p>
+        </div>
+        <ol class="ps-steps">
+          <li>
+            <span class="ps-steps__num">1</span>
+            <div><h3>Isi formulir atau chat kami</h3><p>Sebutkan tanggal dan jenis hewan.</p></div>
+          </li>
+          <li>
+            <span class="ps-steps__num">2</span>
+            <div><h3>Kami konfirmasi kamar</h3><p>Balasan lewat WhatsApp, maksimal 1 jam di jam buka.</p></div>
+          </li>
+          <li>
+            <span class="ps-steps__num">3</span>
+            <div><h3>Datang untuk check-in</h3><p>Bawa buku vaksin, pakan, dan mainan favorit.</p></div>
+          </li>
+          <li>
+            <span class="ps-steps__num">4</span>
+            <div><h3>Pantau, lalu jemput</h3><p>Terima kabar harian. Bayar saat penjemputan.</p></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- FORMULIR & KONTAK -->
+    <section class="ps-section ps-section--teal" id="formulir">
+      <div class="wrap ps-book">
+        <div class="ps-book__side">
+          <h2>Pesan kamar sekarang</h2>
+          <p class="lead">Isi formulir singkat ini. Datanya langsung terkirim ke WhatsApp kami.</p>
+
+          <ul class="ps-contact">
+            <li>
+              <svg class="ico"><use href="#i-wa"/></svg>
+              <div><span>Contact person</span><a class="js-wa" href="https://wa.me/6282336528651" target="_blank" rel="noopener">Kak Azizah · 0823-3652-8651</a></div>
+            </li>
+            <li>
+              <svg class="ico"><use href="#i-pin"/></svg>
+              <div><span>Alamat</span><a href="https://maps.app.goo.gl/cVYWU1s4JZNaVKs86" target="_blank" rel="noopener">Jl. Yos Sudarso No. 45, Kota Madiun</a></div>
+            </li>
+            <li>
+              <svg class="ico"><use href="#i-clock"/></svg>
+              <div><span>Jam buka</span><p>Setiap hari, 08.00–20.00</p></div>
+            </li>
+          </ul>
+        </div>
+
+        <form class="ps-form" id="bookingForm" novalidate>
+          <div class="ps-form__body">
+            <div class="field">
+              <label for="f-owner">Nama pemilik</label>
+              <input id="f-owner" name="owner" type="text" autocomplete="name" placeholder="Contoh: Dewi" required />
+              <p class="field__err">Isi nama Anda.</p>
+            </div>
+            <div class="field">
+              <label for="f-phone">Nomor WhatsApp</label>
+              <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="08xx-xxxx-xxxx" required pattern="^[0-9+\-\s]{9,16}$" />
+              <p class="field__err">Isi nomor yang valid.</p>
+            </div>
+
+            <fieldset class="field">
+              <legend>Jenis hewan</legend>
+              <div class="seg">
+                <label><input type="radio" name="pet" value="Kucing" checked /><span>Kucing</span></label>
+                <label><input type="radio" name="pet" value="Anjing" /><span>Anjing</span></label>
+              </div>
+            </fieldset>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="f-petname">Nama hewan</label>
+                <input id="f-petname" name="petname" type="text" placeholder="Contoh: Mochi" required />
+                <p class="field__err">Isi nama hewan.</p>
+              </div>
+              <div class="field" id="sizeField" hidden>
+                <label for="f-size">Berat anjing</label>
+                <select id="f-size" name="size">
+                  <option>Di bawah 10 kg</option>
+                  <option>10 kg ke atas</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="f-in">Tanggal masuk</label>
+                <input id="f-in" name="checkin" type="date" required />
+                <p class="field__err">Pilih tanggal masuk.</p>
+              </div>
+              <div class="field">
+                <label for="f-out">Tanggal keluar</label>
+                <input id="f-out" name="checkout" type="date" required />
+                <p class="field__err">Harus setelah tanggal masuk.</p>
+              </div>
+            </div>
+
+            <fieldset class="field">
+              <legend>Tipe kamar</legend>
+              <div class="seg">
+                <label><input type="radio" name="room" value="Standar" checked /><span>Standar</span></label>
+                <label><input type="radio" name="room" value="Suite" /><span>Suite</span></label>
+              </div>
+            </fieldset>
+
+            <div class="field">
+              <label for="f-note">Catatan <span class="opt">(opsional)</span></label>
+              <textarea id="f-note" name="note" rows="3" placeholder="Vaksin, alergi, jenis pakan, kebiasaan..."></textarea>
+            </div>
+
+            <div class="ps-form__estimate" id="estimate" aria-live="polite"></div>
+
+            <button type="submit" class="btn btn--lg btn--coral btn--block"><svg class="ico"><use href="#i-wa"/></svg>Kirim formulir lewat WhatsApp</button>
+            <p class="ps-form__fine">Belum ada pembayaran. Kami konfirmasi dulu ketersediaan kamar.</p>
+          </div>
+
+          <div class="ps-form__done" id="formDone" hidden>
+            <span class="ps-form__done-ico"><svg><use href="#i-paw"/></svg></span>
+            <h3>Formulir siap dikirim!</h3>
+            <p>WhatsApp terbuka di tab baru. Tekan kirim di sana. Kami balas secepatnya.</p>
+            <button type="button" class="btn btn--ghost" id="formReset">Isi formulir lain</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="ps-section" id="faq">
+      <div class="wrap ps-faq">
+        <div class="ps-head ps-head--left">
+          <h2>Pertanyaan yang sering muncul</h2>
+          <p class="lead">Belum terjawab? <a class="js-wa link" href="https://wa.me/6282336528651" target="_blank" rel="noopener">Tanya lewat WhatsApp.</a></p>
+        </div>
+        <div class="ps-faq__list">
+          <details>
+            <summary>Apakah hewan wajib sudah divaksin?<svg class="ico"><use href="#i-chev"/></svg></summary>
+            <p>Ya. Kucing minimal vaksin tricat. Anjing minimal vaksin rabies. Bawa buku vaksin saat check-in.</p>
+          </details>
+          <details>
+            <summary>Boleh bawa pakan dan mainan sendiri?<svg class="ico"><use href="#i-chev"/></svg></summary>
+            <p>Boleh, malah kami sarankan. Bau rumah membuat anabul lebih cepat tenang.</p>
+          </details>
+          <details>
+            <summary>Bagaimana kalau hewan saya sakit?<svg class="ico"><use href="#i-chev"/></svg></summary>
+            <p>Kami langsung menghubungi Anda. Bila perlu, kami bawa ke klinik hewan mitra. Biaya klinik ditanggung pemilik.</p>
+          </details>
+          <details>
+            <summary>Minimal titip berapa lama?<svg class="ico"><use href="#i-chev"/></svg></summary>
+            <p>Minimal satu malam. Untuk titip harian (tanpa menginap), tanyakan lewat WhatsApp.</p>
+          </details>
+          <details>
+            <summary>Apakah bisa check-in atau jemput di luar jam buka?<svg class="ico"><use href="#i-chev"/></svg></summary>
+            <p>Bisa dengan janji. Ada biaya tambahan Rp20.000.</p>
+          </details>
+          <details>
+            <summary>Bagaimana proses pembayarannya?<svg class="ico"><use href="#i-chev"/></svg></summary>
+            <p>Bayar saat penjemputan. Bisa tunai, transfer, atau QRIS.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="ps-footer">
+    <div class="wrap ps-footer__grid">
+      <div>
+        <a href="#beranda" class="ps-logo ps-logo--footer">
+          <span class="ps-logo__mark"><svg><use href="#i-paw"/></svg></span>
+          <span>PAWSTAY</span>
+        </a>
+        <p>Pet hotel khusus kucing dan anjing di Madiun. Dirawat seperti di rumah sendiri.</p>
+      </div>
+      <div>
+        <h4>Kunjungi</h4>
+        <p>Jl. Yos Sudarso No. 45, Kota Madiun<br />Setiap hari, 08.00–20.00</p>
+      </div>
+      <div>
+        <h4>Hubungi</h4>
+        <p><a class="js-wa" href="https://wa.me/6282336528651" target="_blank" rel="noopener">WhatsApp 0823-3652-8651</a><br /><a href="https://instagram.com/" target="_blank" rel="noopener">Instagram @pawstay.madiun</a></p>
+      </div>
+    </div>
+    <div class="wrap ps-footer__base">
+      <span>© <span id="year">2025</span> PAWSTAY Madiun</span>
+      <a href="#atas">Kembali ke atas</a>
+    </div>
+  </footer>
+
+  <!-- BAR BAWAH (PONSEL) -->
+  <div class="ps-dock" role="region" aria-label="Aksi cepat">
+    <a href="#formulir" class="btn btn--teal"><svg class="ico"><use href="#i-form"/></svg>Isi formulir</a>
+    <a href="https://wa.me/6282336528651" target="_blank" rel="noopener" class="btn btn--wa js-wa"><svg class="ico"><use href="#i-wa"/></svg>WhatsApp</a>
+  </div>
+</div>
+
+<script src="script.js" defer></script>
+</body>
+</html>
