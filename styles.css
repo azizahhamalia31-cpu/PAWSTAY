@@ -386,3 +386,347 @@ body { margin: 0; background: var(--bg); }
   .ps-book__side { position: sticky; top: 112px; }
   .ps-faq { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 72px; align-items: start; }
 }
+
+/* =====================================================================
+   ANIMASI & INTERAKSI 3D
+   ===================================================================== */
+
+/* ---------- Tombol 3D (seperti keycap yang bisa ditekan) ---------- */
+.btn {
+  --d: 4px; --lift: 0px;
+  position: relative; overflow: hidden; isolation: isolate;
+  transform: perspective(700px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--lift));
+  box-shadow: var(--ring, 0 0 0 0 transparent), 0 var(--d) 0 var(--edge, transparent), 0 calc(var(--d) + 6px) 14px rgb(0 0 0 / 0.14);
+  transition: transform 140ms var(--ease), box-shadow 180ms var(--ease), background-color 160ms var(--ease), color 160ms var(--ease);
+}
+.btn--teal { --edge: color-mix(in srgb, var(--teal) 60%, #000); }
+.btn--wa { --edge: color-mix(in srgb, var(--butter) 68%, #000); }
+.btn--coral { --edge: color-mix(in srgb, var(--coral) 62%, #000); }
+.btn--ghost { --edge: var(--mint-strong); --ring: inset 0 0 0 2px var(--teal); box-shadow: var(--ring), 0 var(--d) 0 var(--edge), 0 calc(var(--d) + 6px) 14px rgb(0 0 0 / 0.1); }
+.btn--sm { --d: 3px; }
+.btn:hover { --d: 8px; --lift: -4px; }
+.btn:active {
+  --d: 1px; --lift: 3px;
+  transform: perspective(700px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(var(--lift)) scale(0.98);
+  transition-duration: 70ms;
+}
+.btn::after { /* kilau yang menyapu saat hover */
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.38) 50%, transparent 70%);
+  transform: translateX(-120%);
+}
+.btn:hover::after { transform: translateX(120%); transition: transform 700ms var(--ease); }
+.btn:hover .ico { animation: ps-wiggle 520ms var(--ease); }
+@keyframes ps-wiggle {
+  0% { transform: none; } 30% { transform: translateY(-3px) rotate(-14deg) scale(1.15); }
+  60% { transform: translateY(0) rotate(10deg); } 100% { transform: none; }
+}
+.ps-ripple {
+  position: absolute; z-index: -1; border-radius: 50%; pointer-events: none;
+  background: rgb(255 255 255 / 0.45); transform: scale(0); animation: ps-ripple 650ms var(--ease) forwards;
+}
+@keyframes ps-ripple { to { transform: scale(1); opacity: 0; } }
+
+/* ---------- Kartu 3D (miring mengikuti kursor) ---------- */
+[data-tilt] {
+  --lz: 0px;
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(var(--lz));
+  transform-style: preserve-3d;
+  transition: transform 200ms var(--ease), box-shadow 240ms var(--ease), background-color 240ms var(--ease), opacity 700ms var(--ease), translate 700ms var(--ease);
+}
+[data-tilt].is-tilting { --lz: 16px; }
+[data-tilt]:not(.ps-hero__media)::after { /* kilau cahaya mengikuti kursor */
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgb(255 255 255 / 0.4), transparent 55%);
+  transition: opacity 240ms var(--ease);
+}
+[data-tilt].is-tilting::after { opacity: 1; }
+[data-theme='dark'] [data-tilt]:not(.ps-hero__media)::after { background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), rgb(255 255 255 / 0.14), transparent 55%); }
+
+.ps-price__promo, .ps-price__addons { position: relative; }
+.ps-price__promo.is-tilting, .ps-price__addons.is-tilting { box-shadow: 0 18px 36px rgb(0 0 0 / 0.18); }
+.ps-price__promo-num { display: inline-block; transition: transform 240ms var(--ease); }
+.ps-price__promo.is-tilting .ps-price__promo-num { transform: translateZ(40px) scale(1.12); }
+
+.ps-fac__list li { position: relative; padding-inline: 12px; margin-inline: -12px; }
+.ps-fac__list li.is-tilting { background: var(--surface); border-radius: 18px; border-color: transparent; box-shadow: var(--shadow); }
+.ps-fac__ico { transition: transform 320ms cubic-bezier(0.34, 1.56, 0.64, 1), rotate 320ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+.ps-fac__list li:hover .ps-fac__ico { rotate: -8deg; }
+.ps-fac__list li.is-tilting .ps-fac__ico { transform: translateZ(36px) scale(1.12); }
+
+/* ---------- Beranda: urutan muncul saat dibuka ---------- */
+@keyframes ps-rise { from { opacity: 0; translate: 0 26px; } to { opacity: 1; translate: 0 0; } }
+@keyframes ps-pop { from { opacity: 0; scale: 0.92; translate: 0 30px; } to { opacity: 1; scale: 1; translate: 0 0; } }
+.ps-hero__copy > * { animation: ps-rise 800ms var(--ease) both; }
+.ps-hero__copy > :nth-child(1) { animation-delay: 80ms; }
+.ps-hero__copy > :nth-child(2) { animation-delay: 170ms; }
+.ps-hero__copy > :nth-child(3) { animation-delay: 270ms; }
+.ps-hero__copy > :nth-child(4) { animation-delay: 370ms; }
+.ps-hero__copy > :nth-child(5) { animation-delay: 470ms; }
+.ps-hero__media { animation: ps-pop 1000ms var(--ease) 200ms both; }
+.ps-hero__media img { box-shadow: 0 24px 50px rgb(0 0 0 / 0.18); }
+.ps-hero__badge { transform: translateZ(60px); animation: ps-bob 4s ease-in-out 1.2s infinite alternate; }
+@keyframes ps-bob { from { translate: 0 0; } to { translate: 0 -10px; } }
+.ps-hero h1 .hl {
+  width: fit-content;
+  background: linear-gradient(transparent 64%, color-mix(in srgb, var(--butter) 65%, transparent) 64%) no-repeat left / 0% 100%;
+  animation: ps-hl 900ms var(--ease) 800ms forwards;
+}
+@keyframes ps-hl { to { background-size: 100% 100%; } }
+
+.ps-hero { position: relative; overflow-x: clip; }
+.ps-hero > .wrap { position: relative; z-index: 1; }
+.ps-float {
+  position: absolute; z-index: 0; width: var(--s); color: var(--teal); opacity: 0.1; pointer-events: none;
+  translate: calc(var(--px, 0) * var(--k) * 1px) calc(var(--py, 0) * var(--k) * 1px);
+  transition: translate 400ms var(--ease);
+  animation: ps-drift var(--t) ease-in-out infinite alternate;
+}
+.ps-float svg { display: block; width: 100%; height: auto; fill: currentColor; }
+[data-theme='dark'] .ps-float { opacity: 0.14; }
+@keyframes ps-drift { from { transform: translateY(0) rotate(-14deg); } to { transform: translateY(-24px) rotate(14deg); } }
+
+/* ---------- Muncul saat di-scroll ---------- */
+.rv { transition: opacity 700ms var(--ease), translate 700ms var(--ease); }
+.rv:not(.is-in) { opacity: 0; translate: 0 30px; }
+
+/* ---------- Header, menu, logo ---------- */
+.ps-header { transition: box-shadow 250ms var(--ease), background-color 250ms var(--ease); }
+.ps-header.is-stuck { box-shadow: 0 8px 24px rgb(0 0 0 / 0.08); }
+.ps-progress {
+  position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; transform-origin: left; transform: scaleX(var(--p, 0));
+  background: linear-gradient(90deg, var(--teal), var(--butter), var(--coral)); pointer-events: none;
+}
+.ps-nav a { transition: color 150ms var(--ease), background-color 150ms var(--ease), transform 200ms var(--ease); }
+.ps-nav a:hover { transform: translateY(-2px); }
+.ps-nav a.is-active { color: var(--ink); background: var(--mint-strong); }
+.ps-logo__mark { transition: transform 360ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+.ps-logo:hover .ps-logo__mark { transform: rotate(-14deg) scale(1.12); }
+.ps-theme svg { transition: transform 360ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+.ps-theme:hover svg { transform: rotate(40deg) scale(1.15); }
+
+/* ---------- Harga, langkah, formulir, FAQ ---------- */
+.ps-price__table tbody td, .ps-price__table tbody th { transition: background-color 180ms var(--ease); }
+.ps-price__table tbody tr:hover > * { background: var(--mint); }
+.ps-price__table td { transition: background-color 180ms var(--ease), transform 220ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+.ps-price__table td:hover { transform: scale(1.06); }
+
+.ps-steps__num { transition: transform 700ms var(--ease), box-shadow 300ms var(--ease); box-shadow: 0 4px 0 color-mix(in srgb, var(--teal) 60%, #000); }
+.ps-steps li:last-child .ps-steps__num { box-shadow: 0 4px 0 color-mix(in srgb, var(--butter) 68%, #000); }
+.ps-steps li:hover .ps-steps__num { transform: perspective(300px) rotateY(360deg) translateY(-3px); }
+
+.field input[type='text'], .field input[type='tel'], .field input[type='date'], .field select, .field textarea {
+  transition: border-color 150ms var(--ease), background-color 150ms var(--ease), box-shadow 200ms var(--ease), transform 200ms var(--ease);
+}
+.field input:focus, .field select:focus, .field textarea:focus { box-shadow: 0 0 0 4px color-mix(in srgb, var(--teal) 22%, transparent); transform: translateY(-2px); }
+.field label { transition: color 150ms var(--ease); }
+.field:focus-within > label { color: var(--teal); }
+.field.is-invalid input { animation: ps-shake 380ms var(--ease); }
+@keyframes ps-shake { 20%, 60% { translate: -6px 0; } 40%, 80% { translate: 6px 0; } }
+.seg input:checked + span { animation: ps-seg 300ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes ps-seg { from { transform: scale(0.88); } to { transform: none; } }
+.ps-form__estimate.is-pop { animation: ps-est 380ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+@keyframes ps-est { from { opacity: 0.4; transform: translateY(8px) scale(0.96); } to { opacity: 1; transform: none; } }
+
+.ps-faq details { transition: background-color 200ms var(--ease); }
+.ps-faq summary { transition: color 160ms var(--ease), padding-left 220ms var(--ease); }
+.ps-faq summary:hover { color: var(--teal); padding-left: 8px; }
+.ps-faq details[open] summary { color: var(--teal); }
+.ps-footer a { display: inline-block; transition: color 150ms var(--ease), transform 200ms var(--ease); }
+.ps-footer a:hover { transform: translateX(4px); }
+
+/* ---------- Ledakan jejak kaki saat formulir terkirim ---------- */
+.ps-burst { position: fixed; z-index: 100; pointer-events: none; animation: ps-burst 950ms var(--ease) forwards; }
+.ps-burst svg { width: 24px; height: 24px; }
+@keyframes ps-burst {
+  from { opacity: 1; transform: translate(-50%, -50%) scale(0.3); }
+  to { opacity: 0; transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) rotate(var(--r)) scale(1.2); }
+}
+
+
+/* =====================================================================
+   RESPONSIF
+   ===================================================================== */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+.ps { overflow-x: clip; }
+.ps-contact a, .ps-contact p { overflow-wrap: anywhere; }
+
+/* ---------- Tombol menu (ponsel & tablet) ---------- */
+.ps-burger {
+  position: relative; display: block; flex: none; width: 40px; height: 40px; padding: 0;
+  border: 1px solid var(--line); border-radius: 999px; background: var(--surface); cursor: pointer;
+  transition: background-color 150ms var(--ease), transform 140ms var(--ease);
+}
+.ps-burger:hover { background: var(--mint); }
+.ps-burger:active { transform: scale(0.94); }
+.ps-burger span {
+  position: absolute; left: 11px; right: 11px; top: calc(50% - 1px); height: 2px; border-radius: 2px; background: var(--ink);
+  transition: transform 280ms var(--ease), opacity 160ms var(--ease);
+}
+.ps-burger span:nth-child(1) { transform: translateY(-6px); }
+.ps-burger span:nth-child(3) { transform: translateY(6px); }
+.ps-burger[aria-expanded='true'] span:nth-child(1) { transform: rotate(45deg); }
+.ps-burger[aria-expanded='true'] span:nth-child(2) { opacity: 0; }
+.ps-burger[aria-expanded='true'] span:nth-child(3) { transform: rotate(-45deg); }
+
+@media (max-width: 959px) {
+  .ps-nav {
+    display: grid; gap: 6px; margin: 0; padding: 12px 20px 18px;
+    position: absolute; left: 0; right: 0; top: 100%;
+    max-height: calc(100vh - 64px - var(--dock-h)); overflow-y: auto;
+    background: var(--bg); border-bottom: 1px solid var(--line); box-shadow: 0 20px 30px rgb(0 0 0 / 0.12);
+    opacity: 0; visibility: hidden; translate: 0 -8px;
+    transition: opacity 200ms var(--ease), translate 260ms var(--ease), visibility 0s linear 260ms;
+  }
+  .ps-nav.is-open { opacity: 1; visibility: visible; translate: 0 0; transition-delay: 0s; }
+  .ps-nav a { padding: 14px 16px; border-radius: 14px; font-size: 1.0625rem; background: var(--surface-2); }
+  .ps-nav a:hover { transform: none; }
+  .ps-steps li:not(:last-child)::before { display: none; }
+}
+@media (min-width: 960px) { .ps-burger { display: none; } }
+
+/* ---------- Tablet (720–959px) ---------- */
+@media (min-width: 720px) and (max-width: 959px) {
+  .ps-hero__media img { aspect-ratio: 16 / 10; }
+  .ps-hero__lead { max-width: 46ch; }
+  .ps-hero__badge { left: 20px; bottom: 20px; }
+  .ps-fac__list { display: grid; grid-template-columns: 1fr 1fr; column-gap: 40px; }
+  .ps-fac__list li:nth-last-child(2) { border-bottom: 1px solid var(--line); }
+  .ps-steps { display: grid; grid-template-columns: 1fr 1fr; gap: 32px 40px; }
+  .ps-steps li { padding-bottom: 0; }
+  .ps-contact { grid-template-columns: 1fr 1fr; }
+  .ps-contact li:first-child { grid-column: 1 / -1; }
+  .ps-faq details p { padding-right: 56px; }
+}
+
+/* ---------- Ponsel (di bawah 720px) ---------- */
+@media (max-width: 719px) {
+  .ps-section { padding: 56px 0; }
+  .ps-hero__cta .btn { width: 100%; }
+  .ps-float { scale: 0.7; }
+  .ps-float:nth-of-type(n + 5) { display: none; }
+  .ps-footer__base { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+@media (max-width: 480px) {
+  .btn--lg { white-space: normal; text-align: center; line-height: 1.2; padding: 10px 20px; }
+  .field-row { grid-template-columns: 1fr; }
+  .ps-hero__badge { left: 10px; bottom: 10px; max-width: 220px; }
+  .ps-form { padding: 20px 16px; border-radius: 22px; }
+  .ps-price__table th, .ps-price__table td { padding: 14px 10px; }
+  .ps-price__table td { font-size: 0.9688rem; }
+  .ps-price__promo-num { font-size: 1.75rem; }
+}
+@media (max-width: 400px) {
+  .ps-price__table td { font-size: 0.875rem; }
+  .ps-price__table th, .ps-price__table td { padding: 12px 7px; }
+  .ps-price__table tbody th { font-size: 0.875rem; }
+  .ps-price__table td .ps-price__suite { padding: 4px 7px; }
+  .ps-fac__list li { gap: 12px; }
+}
+@media (max-width: 359px) {
+  .ps-header .btn--sm { display: none; }
+  .ps-price__table td { white-space: normal; }
+  .wrap { padding: 0 16px; }
+}
+
+/* ---------- Ponsel landscape (layar pendek) ---------- */
+@media (max-height: 480px) and (orientation: landscape) and (max-width: 959px) {
+  .ps { --dock-h: 58px; }
+  .ps-dock { padding-top: 6px; padding-bottom: calc(6px + env(safe-area-inset-bottom)); }
+  .ps-dock .btn { min-height: 42px; }
+  .ps-header__row { height: 56px; }
+  .ps-nav { max-height: calc(100vh - 56px - var(--dock-h)); grid-template-columns: 1fr 1fr; }
+  .ps-hero__grid { grid-template-columns: 1fr 1fr; align-items: center; }
+  .ps-hero__media img { aspect-ratio: 4 / 3; }
+}
+
+/* ---------- Layar lebar ---------- */
+@media (min-width: 1280px) { .wrap { max-width: 1240px; } }
+@media (min-width: 1536px) {
+  html { font-size: 106.25%; }
+  .wrap { max-width: 1360px; }
+}
+@media (min-width: 1920px) {
+  html { font-size: 112.5%; }
+  .wrap { max-width: 1520px; }
+}
+
+/* Tombol kontak di header jadi ikon saja di layar kecil (WhatsApp tetap ada di bar bawah) */
+@media (max-width: 560px) {
+  .ps-header .btn--sm span { display: none; }
+  .ps-header .btn--sm { width: 40px; padding: 0; }
+}
+
+
+/* =====================================================================
+   SPASI LEBIH LONGGAR DI PONSEL
+   ===================================================================== */
+@media (max-width: 719px) {
+  .ps-header__row { height: 68px; }
+  .ps-hero { padding: 36px 0 56px; }
+  .ps-hero__grid { gap: 40px; }
+  .ps-hero__place { line-height: 1.5; }
+  .ps-hero h1 { margin-top: 18px; line-height: 1.22; }
+  .ps-hero h1 .hl { margin-top: 6px; padding-bottom: 4px; }
+  .ps-hero__lead { margin-top: 24px; line-height: 1.7; }
+  .ps-hero__cta { gap: 16px; margin-top: 32px; }
+  .ps-hero__note { margin-top: 24px; line-height: 1.75; }
+
+  .ps-section { padding: 72px 0; }
+  .ps-head { margin-bottom: 40px; }
+  .ps .lead { margin-top: 14px; line-height: 1.7; }
+
+  .ps-fac { gap: 40px; }
+  .ps-fac__img { margin-top: 28px; }
+  .ps-fac__list li { gap: 16px; padding-block: 24px; }
+  .ps-fac__list p { margin-top: 6px; line-height: 1.65; }
+
+  .ps-price { gap: 28px; }
+  .ps-price__legend { line-height: 1.7; }
+  .ps-price__legend p + p { margin-top: 10px; }
+  .ps-price__extra { gap: 20px; }
+  .ps-price__promo { padding: 20px; gap: 16px; }
+  .ps-price__addons { padding: 8px 20px; }
+  .ps-price__addons div { padding: 16px 0; }
+
+  .ps-steps li { gap: 18px; padding-bottom: 36px; }
+  .ps-steps li:not(:last-child)::before { top: 54px; }
+  .ps-steps p { margin-top: 6px; line-height: 1.65; }
+
+  .ps-book { gap: 44px; }
+  .ps-contact { margin-top: 32px; gap: 24px; }
+  .ps-form__body { gap: 22px; }
+  .field { gap: 8px; }
+  .ps-form__fine { line-height: 1.6; }
+
+  .ps-faq { gap: 8px; }
+  .ps-faq summary { padding: 22px 0; line-height: 1.45; gap: 20px; }
+  .ps-faq details p { padding-bottom: 24px; line-height: 1.7; }
+
+  .ps-footer { padding: 56px 0 28px; }
+  .ps-footer__grid { gap: 36px; }
+  .ps-footer h4 { margin-bottom: 12px; }
+  .ps-footer__base { margin-top: 44px; }
+
+  .ps-dock { gap: 12px; padding-top: 12px; }
+}
+@media (min-width: 360px) and (max-width: 719px) {
+  .wrap { padding: 0 24px; }
+}
+
+/* Garis sorot judul mengikuti tiap baris teks (tidak menutupi blok penuh) */
+.ps-hero h1 .hl {
+  display: inline; margin-top: 0; padding-bottom: 0; width: auto;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+.ps-hero h1 .hl::before { content: '\A'; white-space: pre; }
+@media (max-width: 719px) {
+  .ps-hero h1 { line-height: 1.28; }
+  .ps-hero__lead { margin-top: 32px; }
+}
+
+/* Jarak keterangan harga di beranda dari tombol */
+.ps-hero__note { margin-top: 32px; }
+@media (max-width: 719px) {
+  .ps-hero__note { margin-top: 44px; }
+}
