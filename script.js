@@ -60,6 +60,34 @@
     var inEl = document.getElementById('f-in');
     var outEl = document.getElementById('f-out');
     var estimate = document.getElementById('estimate');
+    var phoneEl = document.getElementById('f-phone');
+
+    /* Nomor WhatsApp Indonesia: 08xx / +628xx / 628xx, total 10-13 digit */
+    function normPhone(v) {
+      var d = (v || '').replace(/[\s\-().]/g, '');
+      if (!/^\+?\d+$/.test(d)) return null;
+      d = d.replace(/^\+/, '');
+      if (d.indexOf('62') === 0) d = '0' + d.slice(2);
+      if (!/^08[1-9]\d{7,10}$/.test(d)) return null;
+      if (/^(\d)\1+$/.test(d.slice(2))) return null;
+      return '62' + d.slice(1);
+    }
+    function checkPhone(show) {
+      var v = phoneEl.value.trim(), msg = '';
+      if (!v) msg = 'Isi nomor WhatsApp Anda.';
+      else if (!normPhone(v)) msg = 'Nomor tidak valid. Pakai nomor WhatsApp Indonesia, contoh 0812-3456-7890.';
+      phoneEl.setCustomValidity(msg);
+      var err = phoneEl.closest('.field').querySelector('.field__err');
+      if (err) err.textContent = msg;
+      if (show) setInvalid(phoneEl, !!msg);
+      return !msg;
+    }
+    phoneEl.addEventListener('input', function () {
+      var s = phoneEl.value.replace(/[^0-9+\-\s]/g, '');
+      if (s !== phoneEl.value) phoneEl.value = s;
+      checkPhone(phoneEl.closest('.field').classList.contains('is-invalid'));
+    });
+    phoneEl.addEventListener('blur', function () { if (phoneEl.value.trim()) checkPhone(true); });
 
     var today = new Date();
     today.setMinutes(today.getMinutes() - today.getTimezoneOffset());
@@ -115,6 +143,7 @@
 
     function validate() {
       var ok = true;
+      checkPhone(false);
       ['f-owner', 'f-phone', 'f-petname', 'f-in'].forEach(function (id) {
         var el = document.getElementById(id);
         var bad = !el.checkValidity() || !el.value.trim();
@@ -156,7 +185,7 @@
         'Halo PAWSTAY, saya ingin menitipkan hewan.',
         '',
         'Nama pemilik: ' + val('owner'),
-        'No. WhatsApp: ' + val('phone'),
+        'No. WhatsApp: +' + normPhone(val('phone')),
         'Hewan: ' + pet + ' — ' + val('petname'),
         'Masuk: ' + formatDate(val('checkin')),
         'Keluar: ' + formatDate(val('checkout')) + ' (' + n + ' malam)',
@@ -324,7 +353,7 @@
         setTimeout(function () { el.classList.add('is-in'); }, el._d || 0);
       });
     }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
-    document.querySelectorAll('.ps-head, .ps-fac__intro > *, .ps-fac__list li, .ps-price__table, .ps-price__legend, .ps-price__promo, .ps-price__addons, .ps-steps li, .ps-contact li, .ps-book__side > h2, .ps-book__side > .lead, .ps-form, .ps-faq details, .ps-footer__grid > div').forEach(function (el) {
+    document.querySelectorAll('.ps-head, .ps-about__text > *, .ps-rate, .ps-team li, .ps-fac__intro > *, .ps-fac__list li, .ps-price__table, .ps-price__legend, .ps-price__promo, .ps-price__addons, .ps-steps li, .ps-contact li, .ps-book__side > h2, .ps-book__side > .lead, .ps-form, .ps-faq details, .ps-footer__grid > div').forEach(function (el) {
       var p = el.parentElement;
       p._rvc = (p._rvc || 0) + 1;
       el._d = Math.min((p._rvc - 1) * 90, 450);
@@ -340,7 +369,7 @@
         setTimeout(function () { countUp(e.target); }, 500);
       });
     }, { threshold: 0.6 });
-    document.querySelectorAll('.ps-hero__badge-num, .ps-price__promo-num').forEach(function (el) { numIO.observe(el); });
+    document.querySelectorAll('.ps-hero__badge-num, .ps-price__promo-num, .ps-about__num').forEach(function (el) { numIO.observe(el); });
   }
 
   function initMenu() {
@@ -360,6 +389,46 @@
     window.addEventListener('resize', function () { if (window.innerWidth >= 960) set(false); });
   }
 
+  function initRating() {
+    var box = document.getElementById('rating');
+    if (!box) return;
+    var labels = [].slice.call(box.querySelectorAll('.ps-rate__stars label'));
+    var stars = box.querySelector('.ps-rate__stars');
+    var text = document.getElementById('rateText');
+    var send = document.getElementById('rateSend');
+    var reset = document.getElementById('rateReset');
+    var names = ['', 'Kurang puas', 'Cukup', 'Baik', 'Sangat baik', 'Luar biasa'];
+    function current() { var c = box.querySelector('input:checked'); return c ? +c.value : 0; }
+    function paint(n) { labels.forEach(function (l, i) { l.classList.toggle('is-on', i < n); }); }
+    function show() {
+      var n = current();
+      paint(n);
+      text.textContent = n ? 'Anda memberi ' + n + ' dari 5 bintang: ' + names[n] + '.' : 'Pilih bintang untuk menilai.';
+      send.hidden = reset.hidden = !n;
+      if (n) send.href = waLink('Halo PAWSTAY, saya memberi penilaian ' + n + ' dari 5 bintang (' + names[n] + ').');
+    }
+    labels.forEach(function (l, i) {
+      l.addEventListener('mouseenter', function () { paint(i + 1); text.textContent = names[i + 1]; });
+    });
+    stars.addEventListener('mouseleave', show);
+    box.addEventListener('change', function () {
+      try { localStorage.setItem('pawstay-rating', String(current())); } catch (e) {}
+      show();
+    });
+    reset.addEventListener('click', function () {
+      var c = box.querySelector('input:checked');
+      if (c) c.checked = false;
+      try { localStorage.removeItem('pawstay-rating'); } catch (e) {}
+      show();
+      labels[0].querySelector('input').focus();
+    });
+    try {
+      var saved = +localStorage.getItem('pawstay-rating');
+      if (saved >= 1 && saved <= 5) labels[saved - 1].querySelector('input').checked = true;
+    } catch (e) {}
+    show();
+  }
+
   function init() {
     var root = document.getElementById('pawstay');
     if (!root || root.dataset.ready) return;
@@ -368,6 +437,7 @@
     initWhatsAppLinks();
     initForm();
     initYear();
+    initRating();
     initMenu();
     initMotion();
   }

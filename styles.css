@@ -730,3 +730,113 @@ html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 @media (max-width: 719px) {
   .ps-hero__note { margin-top: 44px; }
 }
+
+/* =====================================================================
+   COMPANY PROFILE: Tentang & Tim
+   ===================================================================== */
+.ps-about { display: grid; gap: 40px; }
+.ps-about__stats { list-style: none; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.ps-about__stats li { display: grid; align-content: start; gap: 6px; padding: 14px 12px; background: var(--surface); border-radius: 20px; }
+.ps-about__num { font: 700 clamp(1.5rem, 6vw, 2.5rem)/1 'Fredoka', sans-serif; color: var(--teal); font-variant-numeric: tabular-nums; }
+.ps-about__stats li > span:last-child { font-size: 0.8125rem; line-height: 1.35; color: var(--muted); }
+.ps-about__pillars { list-style: none; margin: 0; padding: 0; }
+.ps-about__pillars li { padding: 20px 0; border-top: 1px solid var(--line); }
+.ps-about__pillars li:last-child { border-bottom: 1px solid var(--line); }
+.ps-about__pillars h3 { color: var(--teal); }
+.ps-about__pillars p { margin-top: 6px; color: var(--muted); }
+
+.ps-team { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.ps-team li { display: flex; gap: 16px; padding: 20px; background: var(--surface); border-radius: 22px; }
+.ps-team p { margin-top: 6px; color: var(--muted); font-size: 0.9688rem; }
+
+@media (min-width: 720px) {
+  .ps-about__stats li { padding: 18px; }
+  .ps-team { grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .ps-team li { flex-direction: column; padding: 26px; }
+}
+@media (min-width: 960px) {
+  .ps-about { grid-template-columns: 1.1fr 0.9fr; gap: 72px; align-items: start; }
+}
+
+
+/* =====================================================================
+   MULTI-HALAMAN
+   ===================================================================== */
+.ps.ps { --dock-h: 0px; }
+.ps .ps-h1 { font-size: clamp(1.75rem, 5vw, 2.5rem); font-weight: 600; }
+.ps-section--teal .ps-h1 { color: var(--on-deep); }
+.ps-nav a[aria-current='page'] { color: var(--ink); background: var(--mint-strong); }
+.ps-about__stats + .ps-team { margin-top: 28px; }
+.ps-team--links .link { display: inline-block; margin-top: 10px; }
+.ps-cta .wrap { display: grid; justify-items: start; gap: 8px; }
+.ps-cta .btn { margin-top: 16px; }
+
+
+/* =====================================================================
+   WARNA TEKS PUTIH: Contact person, Kenali PAWSTAY, judul Kontak
+   ===================================================================== */
+.ps-header .btn--teal,
+.ps-hero .btn--teal { color: #ffffff; }                  /* "Contact person" (tombol header) & "Kenali PAWSTAY" */
+.ps-contact li:first-child span { color: #ffffff; }      /* label "Contact person" di halaman Kontak */
+.ps-book__side .ps-h1 { color: #ffffff; }                /* "Hubungi kami atau pesan kamar" */
+
+/* Mode gelap: tombol dibuat hijau tua agar teks putih tetap terbaca */
+[data-theme='dark'] .ps-header .btn--teal,
+[data-theme='dark'] .ps-hero .btn--teal { background: #0f6b63; --edge: #06322e; }
+[data-theme='dark'] .ps-header .btn--teal:hover,
+[data-theme='dark'] .ps-hero .btn--teal:hover { background: #12827a; }
+
+
+/* =====================================================================
+   KURSOR KUSTOM: pawcursor1.png (hanya untuk mouse/trackpad)
+   Angka 16 16 = titik klik di dalam gambar 32x32
+   ===================================================================== */
+:root {
+  --cursor-paw: url('pawcursor1.png') 16 16, auto;
+  --cursor-paw-hot: url('pawcursor2.png') 16 16, pointer;
+}
+@media (hover: hover) and (pointer: fine) {
+  html, .ps { cursor: var(--cursor-paw); }
+  .ps a, .ps button, .ps summary, .ps label, .ps select, .ps .btn { cursor: var(--cursor-paw-hot); }
+  .ps input[type='text'], .ps input[type='tel'], .ps input[type='date'], .ps textarea { cursor: text; }
+}
+
+
+/* =====================================================================
+   JUDUL BERANDA: hijau & kuning, tanpa highlight
+   ===================================================================== */
+:root, [data-theme='light'] { --hero-green: #12806f; --hero-yellow: #b98100; }
+[data-theme='dark'] { --hero-green: #6fd8c6; --hero-yellow: #f2d273; }
+
+.ps-hero h1 { color: var(--hero-green); }                       /* "Anda pergi tenang." */
+.ps-hero h1 .hl { color: var(--hero-yellow); background: none; animation: none; }  /* "Anabul tetap senang." */
+
+/* Ikon berbentuk isi (jejak kaki & WhatsApp) tidak boleh dikosongkan */
+.ps .ps-fac__ico svg:has(use[href='#i-paw']),
+.ps .ps-fac__ico svg:has(use[href='#i-wa']) { fill: currentColor; }
+
+
+/* =====================================================================
+   RATING BINTANG
+   ===================================================================== */
+:root, [data-theme='light'] { --star: #f2b600; }
+[data-theme='dark'] { --star: #f2d273; }
+.ps-rate { display: grid; justify-items: start; gap: 10px; padding: 24px; background: var(--surface); border-radius: 24px; box-shadow: var(--shadow); }
+.ps-rate p { color: var(--muted); }
+.ps-rate [hidden] { display: none !important; }
+.ps-rate__stars { display: flex; gap: 2px; margin: 6px 0 2px; padding: 0; border: 0; }
+.ps-rate__stars label { position: relative; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; color: color-mix(in srgb, var(--muted) 35%, transparent); transition: color 150ms var(--ease); }
+.ps-rate__stars label.is-on { color: var(--star); }
+.ps-rate__stars input { position: absolute; inset: 0; margin: 0; opacity: 0; }
+.ps-rate__stars svg { width: 38px; height: 38px; fill: currentColor; transition: transform 240ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+.ps-rate__stars label:hover svg { transform: scale(1.18) rotate(-6deg); }
+.ps-rate__stars label:has(input:checked) svg { animation: ps-seg 300ms cubic-bezier(0.34, 1.56, 0.64, 1); }
+.ps-rate__stars label:has(input:focus-visible) { outline: 3px solid var(--coral); outline-offset: 2px; }
+.ps-rate .ps-rate__text { min-height: 1.6em; font-weight: 800; color: var(--ink); }
+.ps-rate__reset { padding: 0; border: 0; background: none; font: 700 0.9375rem/1.4 'Nunito', sans-serif; color: var(--teal); text-decoration: underline; text-underline-offset: 3px; }
+
+
+/* Tombol "Kirim lewat WhatsApp" pada rating: teks putih */
+.ps-rate .btn--teal { color: #ffffff; }
+[data-theme='dark'] .ps-rate .btn--teal { background: #0f6b63; --edge: #06322e; }
+[data-theme='dark'] .ps-rate .btn--teal:hover { background: #12827a; }
