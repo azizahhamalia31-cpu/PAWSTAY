@@ -1,0 +1,68 @@
+# PAWSTAY
+
+> PAWSTAY adalah pet hotel (penitipan) khusus kucing dan anjing di Kota Madiun, Jawa Timur. Hewan dirawat seperti di rumah sendiri: kamar ber-AC, makan sesuai kebiasaan, dan kabar foto serta video harian lewat WhatsApp.
+
+## Informasi dasar
+
+- Alamat: Jl. Yos Sudarso No. 45, Kota Madiun, Jawa Timur
+- Jam buka: setiap hari, 08.00–20.00 WIB
+- WhatsApp (Kak Azizah): 0823-3652-8651
+- Instagram: https://www.instagram.com/pawstay.madiun/
+- Balasan WhatsApp: maksimal 1 jam di jam buka
+- Pembayaran: saat penjemputan, tunai, transfer, atau QRIS
+
+## Tarif per malam
+
+Kucing (semua ukuran):
+- Standar: Rp45.000
+- Suite: Rp70.000
+
+Anjing kecil (di bawah 10 kg):
+- Standar: Rp60.000
+- Suite: Rp90.000
+
+Anjing sedang–besar (10 kg ke atas):
+- Standar: Rp85.000
+- Suite: Rp120.000
+
+Kamar Standar: kamar pribadi, AC, makan 2×, kabar foto harian.
+Kamar Suite: kamar lebih luas, kasur kayu, main 2× sehari, video harian.
+
+Diskon 10% untuk titip 7 malam atau lebih.
+
+Layanan tambahan:
+- Mandi dan sisir: Rp35.000
+- Antar-jemput (Kota Madiun): Rp25.000
+- Pakan dari PAWSTAY: Rp10.000 per hari
+- Check-in atau jemput di luar jam buka (dengan janji): tambahan Rp20.000
+
+## Fasilitas
+
+- Area kucing dan anjing terpisah
+- Kabar foto dan video harian ke WhatsApp setiap sore
+- Makan sesuai jadwal di rumah (bawa pakan sendiri atau pakai pakan dari PAWSTAY)
+- Kamar ber-AC, dibersihkan 2× sehari
+- Waktu main setiap hari di area bermain tertutup, didampingi staf
+- Cek kesehatan saat check-in, bekerja sama dengan klinik hewan terdekat
+
+## Ketentuan
+
+- Vaksin wajib: kucing minimal vaksin tricat, anjing minimal vaksin rabies. Bawa buku vaksin saat check-in.
+- Boleh membawa pakan dan mainan sendiri.
+- Minimal titip satu malam. Titip harian tanpa menginap: tanyakan lewat WhatsApp.
+- Jika hewan sakit, PAWSTAY menghubungi pemilik dan bila perlu membawa ke klinik hewan mitra. Biaya klinik ditanggung pemilik.
+
+## Cara menitipkan
+
+1. Isi formulir atau chat lewat WhatsApp (sebutkan tanggal dan jenis hewan).
+2. PAWSTAY mengonfirmasi ketersediaan kamar.
+3. Datang untuk check-in membawa buku vaksin, pakan, dan mainan favorit.
+4. Terima kabar harian, lalu jemput dan bayar.
+
+## Halaman
+
+- [Beranda](https://pawstay-v1-lemon.vercel.app/): ringkasan PAWSTAY
+- [Tentang](https://pawstay-v1-lemon.vercel.app/tentang.html): visi, misi, nilai, dan tim
+- [Layanan dan tarif](https://pawstay-v1-lemon.vercel.app/layanan.html): fasilitas, tarif, cara menitipkan
+- [Kontak dan pemesanan](https://pawstay-v1-lemon.vercel.app/kontak.html): alamat, jam buka, formulir WhatsApp
+- [FAQ](https://pawstay-v1-lemon.vercel.app/faq.html): pertanyaan yang sering muncul
